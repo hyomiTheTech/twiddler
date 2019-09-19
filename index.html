@@ -1,27 +1,144 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="jquery.js"></script>
-    <script src="data_generator.js"></script>
+  <script src="jquery.js"></script>
+  <script src="data_generator.js"></script>
+  <link rel="icon" href="https://img.icons8.com/clouds/100/000000/keyboard.png">
   </head>
-  <body>
+  <title>David's Twiddler</title>
+  <body style="background-color: rgb(230, 236, 240);">
+    <div>
+      
+      <h1 id=title style="text-align:center;"><img src="https://img.icons8.com/clouds/40/000000/keyboard.png" ></img>Welcome to Twiddler!</h1>
+    </div>  
+    <div style="margin: 50px auto; max-width: 500px; width: 80%">
+      <button style="
+      text-decoration: none;
+      font: bold 1.3em 'Trebuchet MS',Arial, Helvetica;
+      display: inline-block;
+      text-align: center;
+      color: #8093ab;
+      background-color: #f1f1f1;
+      border-radius: 7px;" class="home">HOME</button>
+    </div>
+      <div id="box"; style="margin: 50px auto; max-width: 500px; width: 80%;border:8px solid rgb(176,196,222); padding: 2em 1em;">
+        <div id="words">
+         <div><h2 style="text-align:center; margin-block-start: 0em;
+    margin-block-end: 0.5em;">New Tweets</2></div>
+          <table>
+            <tr id="tweets" style="display: flex; flex-direction: column-reverse;"></tr>
+          </table>
+        </div>
+          <div class="TLSection" id="TLdouglascalhoun">
+            <h2 class='TLTitle' style="text-align:center;"></h2>
+            <table class="douglascalhounTL">
+              <tr id="douglascalhounTL" style="display: flex; flex-direction: column-reverse;"></tr>
+            </table>
+          </div>
+          <div class="TLSection" id="TLsharksforcheap">
+            <h2 class='TLTitle' style="text-align:center;"></h2>
+            <table class="sharksforcheapTL">
+              <tr id="sharksforcheapTL" style="display: flex; flex-direction: column-reverse;"></tr>
+            </table>
+          </div>
+          <div class="TLSection" id="TLshawndrost">
+            <h2 class='TLTitle' style="text-align:center;"></h2>
+            <table class="shawndrostTL">
+              <tr id="shawndrostTL"style="display: flex; flex-direction: column-reverse;"></tr>
+            </table>
+          </div>  
+          <div class="TLSection" id="TLmracus">
+            <h2 class='TLTitle' style="text-align:center;"></h2>
+            <table class="mracusTL">
+              <tr id="mracusTL"style="display: flex; flex-direction: column-reverse;"></tr>
+            </table>
+          </div>  
+        </div>  
+      </div>  
+      
     <script>
 
+// script begins
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+// shuffle function
+        var shuffle = function(array) {
+          var copy = array.slice()
+          var arrOfArr = []
+          for (var i = 0; i < copy.length; i ++) {
+            arrOfArr.push([copy[i], Math.random()])
+          }
+
+          arrOfArr.sort(function(a, b) {
+            return a[1] - b[1];
+          })
+
+          var shuffled = []
+          for (var j = 0; j < arrOfArr.length; j++) {
+            shuffled.push(arrOfArr[j][0])
+          }
+    
+          return shuffled
+        };    
+
+// twits generator
+        function newTwits() { 
+          var tweet = shuffle(streams.home);
+          var $twits = $('<td></td>');
+          var timeStamp = Date().slice(4, 24);
+          var $eachTwits =$('<div></div>')
+          var users = '<em style="cursor:pointer; font-weight: bold; font-size: 20px;" class=' + '"' + (tweet[0].user).toString() + '"' + '></em>';
+          var $atag = $(users);
+          $atag.appendTo($twits);
+          $twits.appendTo("#tweets");
+          $eachTwits.appendTo($twits)
+          
+          $atag.text('@' + tweet[0].user);
+          $eachTwits.text('"'+ tweet[0].message +'"' + ' - ' + timeStamp);
+// user Timeline page
+          if(tweet[0].user) {
+            var $TlTitle = $()
+            var $TLtwits = $('<td></td>');
+            var id = "#"+(tweet[0].user).toString()+'TL';
+            var $userTL = $(users)
+            
+            $TLtwits.appendTo(id);
+            $userTL.appendTo(id)
+            
+            $userTL.text('@' + tweet[0].user)
+            $TLtwits.text('"'+ tweet[0].message +'"' + ' - ' + timeStamp);
+          }
+
+          setTimeout(newTwits, Math.random()*30000)
+
+// user click button
+          var TLUser = "." + (tweet[0].user).toString()
+          var userTL = "#" + 'TL' + (tweet[0].user).toString();
+
+          $(TLUser).click(function() {
+            $("#words").hide()
+            $(userTL).show()
+
+            $(".TLTitle").text(tweet[0].user.toUpperCase()+"'s Timeline!")
+
+          })
+
+// home button
+          $(".home").click(function() {
+            $("#words").show()
+            $(".TLSection").hide()
+          })
         }
 
+// page starts
+        $(".TLSection").hide().one()
+        newTwits()
       });
-
+    
     </script>
   </body>
 </html>
+
+
+
