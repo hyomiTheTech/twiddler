@@ -2,9 +2,10 @@
   "name": "twiddler",
   "version": "1.0.0",
   "description": "David's very first app.",
-  "main": "data_generator.js",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hyomiTheTech/twiddler/issues"
   },
-  "homepage": "https://github.com/hyomiTheTech/twiddler#readme"
+  "homepage": "https://github.com/hyomiTheTech/twiddler#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
