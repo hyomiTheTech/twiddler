@@ -1,0 +1,19 @@
+{
+  "name": "twiddler",
+  "version": "1.0.0",
+  "description": "David's very first app.",
+  "main": "data_generator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyomiTheTech/twiddler.git"
+  },
+  "author": "David Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyomiTheTech/twiddler/issues"
+  },
+  "homepage": "https://github.com/hyomiTheTech/twiddler#readme"
+}
